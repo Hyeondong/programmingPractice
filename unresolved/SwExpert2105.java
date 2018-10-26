@@ -32,48 +32,49 @@ public class SwExpert2105 {
 					first.dir = 0;
 					first.dir_cvt = 1;
 					list.add(first);
-
+					
 					while(!list.isEmpty() && !found) {
-						
 						Pos_dir item = new Pos_dir(list.get(list.size()-1));
 						
 						while(!found) {
 							if(item.dir_cvt==2 || item.dir==4 ) {
+								visit[list.get(list.size()-1).i][list.get(list.size()-1).j]=0; // pop해야 될 경우 방문한 곳 다시 초기화
 								list.remove(list.size()-1);
-								//System.out.println("pop("+item.i+","+item.j+") "+item.dir+" "+item.dir_cvt+" "+mat[item.i][item.j]);
+								
+								if(!list.isEmpty()) {
+									list.get(list.size()-1).dir++;
+									list.get(list.size()-1).dir_cvt++;
+									//pop 할 노드 방향 ++;
+								}
 								break;
 							}
 							next_i = item.i + dir[item.dir].i;
 							next_j = item.j + dir[item.dir].j;
 							
 							if(next_i == i && next_j ==j && item.dir == 3) {
+								//다시 원점으로 돌아오면 종료
 								found = true;
-								//System.out.println("found");
 								break;
 							}
 							
 							if(next_i<0 || next_j<0 || next_i > N-1 || next_j > N-1 || visit[next_i][next_j] == 1 || is_overlap(mat[next_i][next_j], list)) {
+								//배열 범위 벗어나거나 방문한 곳, 이미 갔던 디저트 카페 일 경우 방향 틀어줌
 								item.dir++;
 								item.dir_cvt++;
-								//System.out.println("걸린거("+next_i+","+next_j+") "+item.dir+" "+item.dir_cvt);
 							}
 							else {
-								Pos_dir temp = new Pos_dir(next_i, next_j, item.dir+1, 0);
+								//다음 노드 집어넣고 다음 좌표를 현재좌표로 수정
+								Pos_dir temp = new Pos_dir(next_i, next_j, item.dir, 0);
 								list.add(temp);
 								visit[next_i][next_j] = 1;
 								item.i = next_i;
 								item.j = next_j;
 								item.dir_cvt=0;
-								//System.out.println("push("+next_i+","+next_j+") "+(item.dir+1)+" "+0 + " "+ mat[next_i][next_j]);
 							}
 						}
 					}
-					
-					//System.out.println(list.size());
 					if(max < list.size() && found) 
 						max = list.size();
-					
-					//System.out.println("================================");
 				}
 			}
 			System.out.println("#"+tc+" "+max);
