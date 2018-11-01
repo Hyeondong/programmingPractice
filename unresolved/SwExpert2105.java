@@ -81,7 +81,7 @@ public class SwExpert2105 {
 		}
 	}
 	private static boolean is_overlap(int n, ArrayList<Pos_dir> list) {
-		for(Pos_dir item : list) 
+		for(Pos_dir item : list)
 			if(mat[item.i][item.j] == n)
 				return true;
 		
