@@ -15,7 +15,6 @@ public class SwExpert1249 {
 
 		for(int i=0;i<tc;i++)
 			System.out.println("#"+(i+1)+" "+solution());
-
 	}
 
 	private static int solution() {
@@ -56,8 +55,6 @@ public class SwExpert1249 {
 	private static void dataInput(int map[][], int dist[][], int N) {
 		String line;
 		sc.nextLine();
-
-
 
 		for(int i=0;i<N;i++) {
 			line = sc.nextLine();
